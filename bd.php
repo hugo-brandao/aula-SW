@@ -11,5 +11,4 @@
     if(!$conn){
         die("falha na conexão" . mysqli_connect_error());
     }
-
 ?>

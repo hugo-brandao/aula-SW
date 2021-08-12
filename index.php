@@ -8,6 +8,16 @@
         $novo_nome = md5(time()).".".$extensao;
         $diretorio = "img/";
         move_uploaded_file($_FILES["arquivo"]["tmp_name"], $diretorio . $novo_nome);
+
+//inserir dados na tabela
+
+        $nomecompleto = $diretorio . $novo_nome;
+        $sql_code = "insert into tbl_img(urlimg) value ('{$nomecompleto}') ";
+        if(mysqli_query($conn, $sql_code)){
+            echo"dados inseridos com sucesso";
+        }else{
+            echo "falha ao inserir os dados";
+        }
     };
 ?>
 
@@ -22,10 +32,10 @@
 </head>
 <body>
     <h1 >Upload de imagem</h1>
-    <form action="index.php" method="POST" name="foto" enctype="multpart/form-data">
-        selecione o arquivo:<br>;
-        <input type="file" name="foto"><br;>
-        <input type="submit" name="sbmt" value="enviar">;
+    <form action="index.php" method="POST" name="foto" enctype="multipart/form-data">
+        selecione o arquivo:<br><br>
+        <input type="file" name="arquivo"><br>
+        <input type="submit" name="sbmt" value="enviar"><br>
         </form>
         <hr>
         <?php
